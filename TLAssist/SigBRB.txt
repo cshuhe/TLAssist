@@ -1,0 +1,40 @@
+Algorithm: SigBRB with identifier id and sender s. Code for node i, i ∈ [n]
+Initialization
+    (pk, sk) ← tgen(1^κ)   //threshold signature key generation; pk is the public key and sk is a vector of n private keys
+    proof_f1 ← ⊥, msg ← ⊥   //initialize the parameters
+    val ← ⊥, pset_1 ← ∅, T ← ∅
+input M   //BCB-SEND round
+    msg ← M
+    broadcast ⟨id, BCB-SEND, M⟩
+upon receiving ⟨id, BCB-SEND, M⟩ from s do
+    msg ← M, σ_i ← tsign((id, M))   //BCB-REP round
+    send ⟨id, BCB-REP, M, σ_i⟩ to s
+upon receiving ⟨id, BCB-REP, M, σ_j⟩ from j and i = s do
+    if shareverify((id, M), σ_j) and M = msg then
+        add σ_j to pset_1
+        if |pset_1| ≥ n - t then   //BCB-FINAL round
+            σ ← tcombine((id, M), pset_1)
+            broadcast ⟨id, BCB-FINAL, M, σ⟩
+upon receiving ⟨id, BCB-FINAL, M, σ⟩ from s do
+    if tverify((id, M), σ) and M = msg then
+        proof_f1 ← σ   //DISPERSE round
+        d ← ECCEnc(t + 1, n, msg)
+        for j ∈ {1, · · · n} do
+            send ⟨id, DISPERSE, d_j⟩ to j
+upon receiving t + 1 matching ⟨id, DISPERSE, d_i^*⟩ do
+    fix d_i^*
+    broadcast ⟨id, RECONSTRUCT, d_i^*⟩   //RECONSTRUCT round
+upon receiving ⟨id, RECONSTRUCT, d_j⟩ from j do
+    add d_j to T
+    for 0 ≤ r ≤ t do
+        wait until |T| ≥ 2t + r + 1
+        if ECCDec(t + 1, T, r) = M then
+            val ← M
+            broadcast ⟨id, READY⟩   //send ⟨READY⟩
+            if ⟨DISPERSE⟩ has not been sent then
+                d ← ECCEnc(t + 1, n, M)
+                for j ∈ {1, · · · n} do
+                    send ⟨id, DISPERSE, d_j⟩ to j
+upon receiving n - t ⟨id, READY⟩ do   //READY round
+    if val ≠ ⊥ then
+        output val and return

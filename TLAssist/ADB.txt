@@ -1,0 +1,38 @@
+Algorithm : Authenticated Double-Echo Broadcast(ADB)
+Implements:
+    ByzantineReliableBroadcast, instance brb, with sender s.
+Uses:
+    AuthPerfectPointToPointLinks, instance al.
+upon event < brb, Init > do
+    sentecho := FALSE;
+    sentready := FALSE;
+    delivered := FALSE;
+    echos := [⊥]^N;
+    readys := [⊥]^N;
+upon event < brb, Broadcast | m > do               // only process s
+    forall q ∈ Π do
+        trigger < al, Send | q, [SEND, m] >;
+upon event < al, Deliver | p, [SEND, m] > such that p = s and sentecho = FALSE do
+    sentecho := TRUE;
+    forall q ∈ Π do
+        trigger < al, Send | q, [ECHO, m] >;
+upon event < al, Deliver | p, [ECHO, m] > do
+    if echos[p] = ⊥ then
+        echos[p] := m;
+upon exists m ≠ ⊥ such that #({p ∈ Π | echos[p] = m}) > (N+f)/2
+        and sentready = FALSE do
+    sentready := TRUE;
+    forall q ∈ Π do
+        trigger < al, Send | q, [READY, m] >;
+upon event < al, Deliver | p, [READY, m] > do
+    if readys[p] = ⊥ then
+        readys[p] := m;
+upon exists m ≠ ⊥ such that #({p ∈ Π | readys[p] = m}) > f
+        and sentready = FALSE do
+    sentready := TRUE;
+    forall q ∈ Π do
+        trigger < al, Send | q, [READY, m] >;
+upon exists m ≠ ⊥ such that #({p ∈ Π | readys[p] = m}) > 2f
+        and delivered = FALSE do
+    delivered := TRUE;
+    trigger < brb, Deliver | s, m >;

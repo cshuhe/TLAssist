@@ -1,0 +1,103 @@
+{
+  "CONSTANTS": {
+    "Correct": "Set of correct processes",
+    "Faulty": "Set of Byzantine faulty processes",
+    "V": "Set of values that may be broadcast"
+  },
+  "VARIABLES": {
+    "sender": {
+      "description": "The designated sender process",
+      "init": "sender \\in (Faulty \\cup {CHOOSE p \\in Correct : TRUE})"
+    },
+    "receivedS": {
+      "description": "Mapping from each process to the set of values it has received from the sender",
+      "type": "Correct → SUBSET V",
+      "init": "If sender ∈ Correct, receivedS maps all correct processes to a singleton set {CHOOSE v ∈ V : TRUE}; otherwise unconstrained mapped to SUBSET V"
+    },
+    "delivered": {
+      "description": "Delivered value of each correct process, or empty string if undecided",
+      "type": "Correct → V ∪ {\"\"} ",
+      "init": "All correct processes initially map to empty string"
+    },
+    "receivedE": {
+      "description": "receivedE[p][v] is the set of processes whose ECHO(v) has been received by p",
+      "type": "Correct → (V → SUBSET P)",
+      "init": "Initially empty for all p ∈ Correct and v ∈ V"
+    }
+  },
+  "Actions": [
+    {
+      "name": "SendEcho(self)",
+      "condition": [
+        "self ∈ Correct",
+        "∃ val ∈ receivedS[self] : val ∈ V"
+      ],
+      "effect": [
+        "Choose such a val",
+        "∀ p ∈ Correct : receivedE[p][val] := receivedE[p][val] ∪ {self}"
+      ]
+    },
+    {
+      "name": "StepDeliver(self)",
+      "condition": [
+        "self ∈ Correct",
+        "delivered[self] = \"\"",
+        "∃ v ∈ V : |receivedE[self][v]| > (N + F) / 2"
+      ],
+      "effect": [
+        "Choose such a v",
+        "delivered[self] := v"
+      ]
+    },
+    {
+      "name": "ByzantineEcho(self)",
+      "condition": [
+        "self ∈ Faulty"
+      ],
+      "effect": [
+        "∃ d ∈ Correct, ∃ v ∈ V : self ∉ receivedE[d][v] ∧ receivedE[d][v] := receivedE[d][v] ∪ {self}"
+      ]
+    },
+    {
+      "name": "Next",
+      "effect": [
+        "(∃ self ∈ Correct : SendEcho(self) OR StepDeliver(self))",
+        "OR",
+        "(∃ self ∈ Faulty : ByzantineEcho(self))"
+      ],
+      "description": "Global step relation: some correct process executes one of its enabled actions, or some faulty process acts."
+    },
+    {
+      "name": "Spec",
+      "effect": [
+        "Init ∧ □[Next]_vars",
+        "∀ self ∈ Correct : WF_vars(SendEcho(self) OR StepDeliver(self))"
+      ],
+      "description": "Full system spec: initial condition, step relation, and weak fairness for correct-process actions."
+    }
+  ],
+  "Invariants": [
+    {
+      "name": "TypeInv",
+      "description": "All variables remain within their declared types"
+    },
+    {
+      "name": "Consistency",
+      "description": "No two correct processes decide different values",
+      "spec_instance": "∀ p, q ∈ Correct : (delivered[p] ≠ \"\" ∧ delivered[q] ≠ \"\") ⇒ delivered[p] = delivered[q]"
+    }
+  ],
+  "Properties": [
+    {
+      "name": "Validity",
+      "description": "If the sender is correct, all correct processes eventually decide its value",
+      "spec_instance": "(sender ∈ Correct) ⇒ LET Val == IF sender ∈ Correct THEN CHOOSE v ∈ V : v ∈ receivedS[sender] ELSE \"\" IN ◇(∀ p ∈ Correct : delivered[p] = Val)"
+    }
+  ],
+  "llm_hint": {
+    "receivedS": "Based on pseudocode lacking 'ECHO message has not been sent' guard, receivedS[p] is a set of values modeling Byzantine equivocation: the sender may send multiple different SEND messages to the same process",
+    "receivedE": "receivedE[p][v] abstracts the set of senders whose ECHO(v) messages have been received by p",
+    "Byzantine_model": "Faulty processes may arbitrarily inject ECHO messages for any value to any correct process, limited by anti-stuttering guards",
+    "no_message_queue": "Explicit message queues are abstracted away in favor of set-based reception state"
+  }
+}

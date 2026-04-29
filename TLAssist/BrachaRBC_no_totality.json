@@ -1,0 +1,136 @@
+{
+  "CONSTANTS": {
+    "Correct": "Set of correct processes",
+    "Faulty": "Set of Byzantine faulty processes",
+    "V": "Set of values that may be broadcast"
+  },
+  "VARIABLES": {
+    "sender": {
+      "description": "The designated sender process",
+      "init": "An element of P"
+    },
+    "receivedS": {
+      "description": "Mapping from each process to the set of values it has received from the sender",
+      "type": "Correct -> SUBSET V",
+      "init": "If sender ∈ Correct, receivedS maps all correct processes to a singleton set {CHOOSE v ∈ V : TRUE}; otherwise unconstrained mapped to SUBSET V"
+    },
+    "delivered": {
+      "description": "Delivered value of each correct process, or empty string if undecided",
+      "type": "Correct -> V ∪ {\"\"} ",
+      "init": "All correct processes initially map to empty string"
+    },
+    "receivedE": {
+      "description": "receivedE[p][v] is the set of processes whose ECHO(v) has been received by p",
+      "type": "Correct -> (V -> SUBSET P)",
+      "init": "Initially empty for all p ∈ Correct and v ∈ V"
+    },
+    "receivedR": {
+      "description": "receivedR[p][v] is the set of processes whose READY(v) has been received by p",
+      "type": "Correct -> (V -> SUBSET P)",
+      "init": "Initially empty for all p ∈ Correct and v ∈ V"
+    }
+  },
+  "Actions": [
+    {
+      "name": "SendEcho(self)",
+      "condition": [
+        "self ∈ Correct",
+        "receivedS[self] ≠ {}",
+        "∃ val ∈ receivedS[self] : TRUE"
+      ],
+      "effect": [
+        "Choose val ∈ receivedS[self]",
+        "∀ p ∈ Correct : receivedE[p][val] := receivedE[p][val] ∪ {self}"
+      ]
+    },
+    {
+      "name": "SendReady(self)",
+      "condition": [
+        "self ∈ Correct",
+        "∀ v ∈ V : self ∉ receivedR[self][v]",
+        "∃ v ∈ V : |receivedE[self][v]| ≥ 2F + 1 OR |receivedR[self][v]| ≥ F + 1"
+      ],
+      "effect": [
+        "Choose such a v",
+        "∀ p ∈ Correct : receivedR[p][v] := receivedR[p][v] ∪ {self}"
+      ]
+    },
+    {
+      "name": "StepCommit(self)",
+      "condition": [
+        "self ∈ Correct",
+        "delivered[self] = \"\"",
+        "∃ v ∈ V : |receivedR[self][v]| ≥ 2F + 1"
+      ],
+      "effect": [
+        "Choose such a v",
+        "delivered[self] := v"
+      ]
+    },
+    {
+      "name": "ByzantineEcho(self)",
+      "condition": [
+        "self ∈ Faulty"
+      ],
+      "effect": [
+        "∃ d ∈ Correct, ∃ v ∈ V : self ∉ receivedE[d][v] ∧ receivedE[d][v] := receivedE[d][v] ∪ {self}"
+      ]
+    },
+    {
+      "name": "ByzantineReady(self)",
+      "condition": [
+        "self ∈ Faulty"
+      ],
+      "effect": [
+        "∃ d ∈ Correct, ∃ v ∈ V : self ∉ receivedR[d][v] ∧ receivedR[d][v] := receivedR[d][v] ∪ {self}"
+      ]
+    },
+    {
+      "name": "Next",
+      "effect": [
+        "(∃ self ∈ Correct : SendEcho(self) OR SendReady(self) OR StepCommit(self))",
+        "OR",
+        "(∃ self ∈ Faulty : ByzantineEcho(self) OR ByzantineReady(self))"
+      ],
+      "description": "Global step relation: some correct process executes one of its enabled actions, or some faulty process acts."
+    },
+    {
+      "name": "Spec",
+      "effect": [
+        "Init ∧ □[Next]_vars",
+        "∀ self ∈ Correct : WF_vars(SendEcho(self) OR SendReady(self) OR StepCommit(self))"
+      ],
+      "description": "Full system spec: initial condition, step relation, and weak fairness for correct-process actions."
+    }
+  ],
+  "Invariants": [
+    {
+      "name": "TypeInv",
+      "description": "All variables remain within their declared types"
+    },
+    {
+      "name": "Consistency",
+      "description": "No two correct processes decide different values",
+      "spec_instance": "∀ p, q ∈ Correct : (delivered[p] ≠ \"\" ∧ delivered[q] ≠ \"\") ⇒ delivered[p] = delivered[q]"
+    }
+  ],
+  "Properties": [
+    {
+      "name": "Totality",
+      "description": "If some correct process decides, eventually all correct processes decide",
+      "spec_instance": "(∃ p ∈ Correct : delivered[p] ≠ \"\") ~> (∀ p ∈ Correct : delivered[p] ≠ \"\")"
+    },
+    {
+      "name": "Validity",
+      "description": "If the sender is correct, all correct processes eventually decide its value",
+      "spec_instance": "(sender ∈ Correct) ⇒ LET Val == IF sender ∈ Correct THEN CHOOSE v ∈ V : v ∈ receivedS[sender] ELSE \"\" IN ◇(∀ p ∈ Correct : delivered[p] = Val)"
+    }
+  ],
+  "llm_hint": {
+    "receivedS": "receivedS[p] is a set of values modeling Byzantine equivocation: the sender may send multiple different PROPOSE messages to the same process",
+    "receivedE": "receivedE[p][v] abstracts the set of senders whose ECHO(v) messages have been received by p",
+    "receivedR": "receivedR[p][v] abstracts the set of senders whose READY(v) messages have been received by p",
+    "Byzantine_model": "Faulty processes may arbitrarily inject ECHO or READY messages for any value to any correct process, limited by anti-stuttering guards",
+    "no_message_queue": "Explicit message queues are abstracted away in favor of set-based reception state"
+  }
+}

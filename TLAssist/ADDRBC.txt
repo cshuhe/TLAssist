@@ -1,0 +1,21 @@
+Algorithm 3 ADD-based RBC for long messages
+// only broadcaster node
+input M
+send ⟨PROPOSE, M⟩ to all
+// all nodes
+upon receiving ⟨PROPOSE, M⟩ from the broadcaster do
+    if P(M) then
+        let h := hash(M)
+        send ⟨ECHO, h⟩ to all
+
+upon receiving 2t + 1 ⟨ECHO, h⟩ messages and not having sent a READY message do
+    send ⟨READY, h⟩ to all
+
+upon receiving t + 1 ⟨READY, h⟩ messages and not having sent a READY message do
+    send ⟨READY, h⟩ to all
+
+upon receiving 2t + 1 ⟨READY, h⟩ messages do
+    if received ⟨PROPOSE, M⟩ and h = hash(M) then
+        ADD(M)
+    else
+        ADD(⊥)
