@@ -1,0 +1,293 @@
+<<
+[
+ _TEAction |-> [
+   position |-> 1,
+   name |-> "Initial predicate",
+   location |-> "Unknown location"
+ ],
+ decodeRound |-> (p1 :> 0 @@ p2 :> 0 @@ p3 :> 0 @@ p4 :> 0),
+ delivered |-> (p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ mStar |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ receivedDis |-> ( p1 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p2 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) ),
+ receivedFinal |-> (p2 :> (v1 :> FALSE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE)),
+ receivedReady |-> (p1 :> {} @@ p2 :> {} @@ p3 :> {} @@ p4 :> {}),
+ receivedRec |-> (p1 :> {} @@ p2 :> {} @@ p3 :> {} @@ p4 :> {}),
+ receivedRep |-> (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {})),
+ receivedS |-> (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1),
+ sender |-> p1,
+ val |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> "")
+],
+[
+ _TEAction |-> [
+   position |-> 2,
+   name |-> "ByzantineDisperse",
+   location |-> "line 196, col 5 to line 202, col 76 of module test"
+ ],
+ decodeRound |-> (p1 :> 0 @@ p2 :> 0 @@ p3 :> 0 @@ p4 :> 0),
+ delivered |-> (p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ mStar |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ receivedDis |-> ( p1 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p2 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p1}) ),
+ receivedFinal |-> (p2 :> (v1 :> FALSE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE)),
+ receivedReady |-> (p1 :> {} @@ p2 :> {} @@ p3 :> {} @@ p4 :> {}),
+ receivedRec |-> (p1 :> {} @@ p2 :> {} @@ p3 :> {} @@ p4 :> {}),
+ receivedRep |-> (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {})),
+ receivedS |-> (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1),
+ sender |-> p1,
+ val |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> "")
+],
+[
+ _TEAction |-> [
+   position |-> 3,
+   name |-> "ByzantineReconstruct",
+   location |-> "line 205, col 5 to line 211, col 70 of module test"
+ ],
+ decodeRound |-> (p1 :> 0 @@ p2 :> 0 @@ p3 :> 0 @@ p4 :> 0),
+ delivered |-> (p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ mStar |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ receivedDis |-> ( p1 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p2 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p1}) ),
+ receivedFinal |-> (p2 :> (v1 :> FALSE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE)),
+ receivedReady |-> (p1 :> {} @@ p2 :> {} @@ p3 :> {} @@ p4 :> {}),
+ receivedRec |-> (p1 :> {} @@ p2 :> {} @@ p3 :> {} @@ p4 :> {<<p1, s1>>}),
+ receivedRep |-> (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {})),
+ receivedS |-> (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1),
+ sender |-> p1,
+ val |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> "")
+],
+[
+ _TEAction |-> [
+   position |-> 4,
+   name |-> "ByzantineReconstruct",
+   location |-> "line 205, col 5 to line 211, col 70 of module test"
+ ],
+ decodeRound |-> (p1 :> 0 @@ p2 :> 0 @@ p3 :> 0 @@ p4 :> 0),
+ delivered |-> (p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ mStar |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ receivedDis |-> ( p1 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p2 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p1}) ),
+ receivedFinal |-> (p2 :> (v1 :> FALSE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE)),
+ receivedReady |-> (p1 :> {} @@ p2 :> {} @@ p3 :> {} @@ p4 :> {}),
+ receivedRec |-> (p1 :> {} @@ p2 :> {<<p1, s1>>} @@ p3 :> {} @@ p4 :> {<<p1, s1>>}),
+ receivedRep |-> (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {})),
+ receivedS |-> (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1),
+ sender |-> p1,
+ val |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> "")
+],
+[
+ _TEAction |-> [
+   position |-> 5,
+   name |-> "ByzantineFinal",
+   location |-> "line 186, col 5 to line 193, col 76 of module test"
+ ],
+ decodeRound |-> (p1 :> 0 @@ p2 :> 0 @@ p3 :> 0 @@ p4 :> 0),
+ delivered |-> (p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ mStar |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ receivedDis |-> ( p1 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p2 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p1}) ),
+ receivedFinal |-> (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE)),
+ receivedReady |-> (p1 :> {} @@ p2 :> {} @@ p3 :> {} @@ p4 :> {}),
+ receivedRec |-> (p1 :> {} @@ p2 :> {<<p1, s1>>} @@ p3 :> {} @@ p4 :> {<<p1, s1>>}),
+ receivedRep |-> (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {})),
+ receivedS |-> (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1),
+ sender |-> p1,
+ val |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> "")
+],
+[
+ _TEAction |-> [
+   position |-> 6,
+   name |-> "ByzantineReady",
+   location |-> "line 214, col 5 to line 219, col 68 of module test"
+ ],
+ decodeRound |-> (p1 :> 0 @@ p2 :> 0 @@ p3 :> 0 @@ p4 :> 0),
+ delivered |-> (p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ mStar |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ receivedDis |-> ( p1 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p2 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p1}) ),
+ receivedFinal |-> (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE)),
+ receivedReady |-> (p1 :> {} @@ p2 :> {} @@ p3 :> {} @@ p4 :> {p1}),
+ receivedRec |-> (p1 :> {} @@ p2 :> {<<p1, s1>>} @@ p3 :> {} @@ p4 :> {<<p1, s1>>}),
+ receivedRep |-> (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {})),
+ receivedS |-> (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1),
+ sender |-> p1,
+ val |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> "")
+],
+[
+ _TEAction |-> [
+   position |-> 7,
+   name |-> "SendDisperse",
+   location |-> "line 101, col 5 to line 114, col 76 of module test"
+ ],
+ decodeRound |-> (p1 :> 0 @@ p2 :> 0 @@ p3 :> 0 @@ p4 :> 0),
+ delivered |-> (p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ mStar |-> (p1 :> "" @@ p2 :> s2 @@ p3 :> "" @@ p4 :> ""),
+ receivedDis |-> ( p1 :> (s1 :> {p2} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p2 :> (s1 :> {} @@ s2 :> {p2} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {p2} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p1, p2}) ),
+ receivedFinal |-> (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE)),
+ receivedReady |-> (p1 :> {} @@ p2 :> {} @@ p3 :> {} @@ p4 :> {p1}),
+ receivedRec |-> (p1 :> {} @@ p2 :> {<<p1, s1>>} @@ p3 :> {} @@ p4 :> {<<p1, s1>>}),
+ receivedRep |-> (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {})),
+ receivedS |-> (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1),
+ sender |-> p1,
+ val |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> "")
+],
+[
+ _TEAction |-> [
+   position |-> 8,
+   name |-> "SendReconstruct",
+   location |-> "line 126, col 5 to line 131, col 70 of module test"
+ ],
+ decodeRound |-> (p1 :> 0 @@ p2 :> 0 @@ p3 :> 0 @@ p4 :> 0),
+ delivered |-> (p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ mStar |-> (p1 :> "" @@ p2 :> s2 @@ p3 :> "" @@ p4 :> ""),
+ receivedDis |-> ( p1 :> (s1 :> {p2} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p2 :> (s1 :> {} @@ s2 :> {p2} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {p2} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p1, p2}) ),
+ receivedFinal |-> (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE)),
+ receivedReady |-> (p1 :> {} @@ p2 :> {} @@ p3 :> {} @@ p4 :> {p1}),
+ receivedRec |-> ( p1 :> {<<p2, s2>>} @@
+  p2 :> {<<p1, s1>>, <<p2, s2>>} @@
+  p3 :> {<<p2, s2>>} @@
+  p4 :> {<<p1, s1>>, <<p2, s2>>} ),
+ receivedRep |-> (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {})),
+ receivedS |-> (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1),
+ sender |-> p1,
+ val |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> "")
+],
+[
+ _TEAction |-> [
+   position |-> 9,
+   name |-> "ReceiveDisperse",
+   location |-> "line 117, col 5 to line 123, col 76 of module test"
+ ],
+ decodeRound |-> (p1 :> 0 @@ p2 :> 0 @@ p3 :> 0 @@ p4 :> 0),
+ delivered |-> (p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ mStar |-> (p1 :> "" @@ p2 :> s2 @@ p3 :> "" @@ p4 :> s4),
+ receivedDis |-> ( p1 :> (s1 :> {p2} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p2 :> (s1 :> {} @@ s2 :> {p2} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {p2} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p1, p2}) ),
+ receivedFinal |-> (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE)),
+ receivedReady |-> (p1 :> {} @@ p2 :> {} @@ p3 :> {} @@ p4 :> {p1}),
+ receivedRec |-> ( p1 :> {<<p2, s2>>} @@
+  p2 :> {<<p1, s1>>, <<p2, s2>>} @@
+  p3 :> {<<p2, s2>>} @@
+  p4 :> {<<p1, s1>>, <<p2, s2>>} ),
+ receivedRep |-> (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {})),
+ receivedS |-> (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1),
+ sender |-> p1,
+ val |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> "")
+],
+[
+ _TEAction |-> [
+   position |-> 10,
+   name |-> "SendReconstruct",
+   location |-> "line 126, col 5 to line 131, col 70 of module test"
+ ],
+ decodeRound |-> (p1 :> 0 @@ p2 :> 0 @@ p3 :> 0 @@ p4 :> 0),
+ delivered |-> (p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ mStar |-> (p1 :> "" @@ p2 :> s2 @@ p3 :> "" @@ p4 :> s4),
+ receivedDis |-> ( p1 :> (s1 :> {p2} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p2 :> (s1 :> {} @@ s2 :> {p2} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {p2} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p1, p2}) ),
+ receivedFinal |-> (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE)),
+ receivedReady |-> (p1 :> {} @@ p2 :> {} @@ p3 :> {} @@ p4 :> {p1}),
+ receivedRec |-> ( p1 :> {<<p2, s2>>, <<p4, s4>>} @@
+  p2 :> {<<p1, s1>>, <<p2, s2>>, <<p4, s4>>} @@
+  p3 :> {<<p2, s2>>, <<p4, s4>>} @@
+  p4 :> {<<p1, s1>>, <<p2, s2>>, <<p4, s4>>} ),
+ receivedRep |-> (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {})),
+ receivedS |-> (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1),
+ sender |-> p1,
+ val |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> "")
+],
+[
+ _TEAction |-> [
+   position |-> 11,
+   name |-> "TryDecode",
+   location |-> "line 134, col 5 to line 152, col 76 of module test"
+ ],
+ decodeRound |-> (p1 :> 0 @@ p2 :> 0 @@ p3 :> 0 @@ p4 :> 0),
+ delivered |-> (p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ mStar |-> (p1 :> "" @@ p2 :> s2 @@ p3 :> "" @@ p4 :> s4),
+ receivedDis |-> ( p1 :> (s1 :> {p2} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p2 :> (s1 :> {} @@ s2 :> {p2} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {p2} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p1, p2}) ),
+ receivedFinal |-> (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE)),
+ receivedReady |-> (p1 :> {p4} @@ p2 :> {p4} @@ p3 :> {p4} @@ p4 :> {p1, p4}),
+ receivedRec |-> ( p1 :> {<<p2, s2>>, <<p4, s4>>} @@
+  p2 :> {<<p1, s1>>, <<p2, s2>>, <<p4, s4>>} @@
+  p3 :> {<<p2, s2>>, <<p4, s4>>} @@
+  p4 :> {<<p1, s1>>, <<p2, s2>>, <<p4, s4>>} ),
+ receivedRep |-> (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {})),
+ receivedS |-> (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1),
+ sender |-> p1,
+ val |-> (p1 :> "" @@ p2 :> "" @@ p3 :> "" @@ p4 :> v1)
+],
+[
+ _TEAction |-> [
+   position |-> 12,
+   name |-> "TryDecode",
+   location |-> "line 134, col 5 to line 152, col 76 of module test"
+ ],
+ decodeRound |-> (p1 :> 0 @@ p2 :> 0 @@ p3 :> 0 @@ p4 :> 0),
+ delivered |-> (p2 :> "" @@ p3 :> "" @@ p4 :> ""),
+ mStar |-> (p1 :> "" @@ p2 :> s2 @@ p3 :> "" @@ p4 :> s4),
+ receivedDis |-> ( p1 :> (s1 :> {p2} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p2 :> (s1 :> {} @@ s2 :> {p2} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {p2} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p1, p2}) ),
+ receivedFinal |-> (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE)),
+ receivedReady |-> (p1 :> {p2, p4} @@ p2 :> {p2, p4} @@ p3 :> {p2, p4} @@ p4 :> {p1, p2, p4}),
+ receivedRec |-> ( p1 :> {<<p2, s2>>, <<p4, s4>>} @@
+  p2 :> {<<p1, s1>>, <<p2, s2>>, <<p4, s4>>} @@
+  p3 :> {<<p2, s2>>, <<p4, s4>>} @@
+  p4 :> {<<p1, s1>>, <<p2, s2>>, <<p4, s4>>} ),
+ receivedRep |-> (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {})),
+ receivedS |-> (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1),
+ sender |-> p1,
+ val |-> (p1 :> "" @@ p2 :> v1 @@ p3 :> "" @@ p4 :> v1)
+],
+[
+ _TEAction |-> [
+   position |-> 13,
+   name |-> "Decide",
+   location |-> "line 166, col 5 to line 172, col 72 of module test"
+ ],
+ decodeRound |-> (p1 :> 0 @@ p2 :> 0 @@ p3 :> 0 @@ p4 :> 0),
+ delivered |-> (p2 :> "" @@ p3 :> "" @@ p4 :> v1),
+ mStar |-> (p1 :> "" @@ p2 :> s2 @@ p3 :> "" @@ p4 :> s4),
+ receivedDis |-> ( p1 :> (s1 :> {p2} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p2 :> (s1 :> {} @@ s2 :> {p2} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {p2} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p1, p2}) ),
+ receivedFinal |-> (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE)),
+ receivedReady |-> (p1 :> {p2, p4} @@ p2 :> {p2, p4} @@ p3 :> {p2, p4} @@ p4 :> {p1, p2, p4}),
+ receivedRec |-> ( p1 :> {<<p2, s2>>, <<p4, s4>>} @@
+  p2 :> {<<p1, s1>>, <<p2, s2>>, <<p4, s4>>} @@
+  p3 :> {<<p2, s2>>, <<p4, s4>>} @@
+  p4 :> {<<p1, s1>>, <<p2, s2>>, <<p4, s4>>} ),
+ receivedRep |-> (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {})),
+ receivedS |-> (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1),
+ sender |-> p1,
+ val |-> (p1 :> "" @@ p2 :> v1 @@ p3 :> "" @@ p4 :> v1)
+]
+>>
