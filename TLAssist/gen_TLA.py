@@ -351,7 +351,7 @@ def analyze_tlc_output(output):
 
     # 5) Successfully detected
     if re.search(r'No error has been found', output, re.IGNORECASE):
-        return "success", None, None, "TLC检查通过"
+        return "success", None, None, "TLC pass"
 
     # 6) Other unknown situations: Return original output
     return "unknown", None, None, output
