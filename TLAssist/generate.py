@@ -73,12 +73,12 @@ def construct_prompts(reference, pseudocode):
         "Please study the mapping between pseudocode and JSON files in draft.md, and convert the pseudocode into a "
         "sensible JSON format that meets the following requirements: "
         "\n- Do NOT model an explicit PROPOSE/SEND action. Instead, receivedS is a mapping from processes to V"
-        "\n- For SendEcho (or equivalent) actions, use only the guard `receivedS[self] \in V`. Do NOT add conditions like Cardinality(Sends(...)) or checks against SEND messages."
+        "\n- For SendEcho (or equivalent) actions, use only the guard `receivedS[self] \\in V`. Do NOT add conditions like Cardinality(Sends(...)) or checks against SEND messages."
         "\n- If the model emits any Sends-related helpers/actions, remove them."
 
         "\n- Constants and variables can be partially removed or added according to the requirements of the pseudocode. "
         "\n- action structures should follow the draft.md style; you may add or omit subitems based on the pseudocode (Do not omit Next and Spec) "
-        "\n- Do NOT add N or F into CONSTANTS. Use derived expressions N == Cardinality(Correct \cup Faulty) and F == Cardinality(Faulty) in TLA+, so omit them from CONSTANTS."
+        "\n- Do NOT add N or F into CONSTANTS. Use derived expressions N == Cardinality(Correct \\cup Faulty) and F == Cardinality(Faulty) in TLA+, so omit them from CONSTANTS."
         "\n- Do NOT invent helpers/fields not in the pseudocode (e.g. \"EchoAuthors\")."
         "\n- Byzantine action: model faulty processes as able to inject only the message types appearing in pseudocode.(but do not model SEND/PROPOSE messages)"
 
