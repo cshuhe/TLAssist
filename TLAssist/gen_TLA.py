@@ -140,12 +140,12 @@ Please generate a complete TLA+ specification, including the configuration secti
 {json_config}
 
 Generation requirements:
-1. Replace the following symbols as indicated: change `∈` to `\in`, `∧` to `/\`, `∃` to `\E`, `U` to `\cup`, `\setminus` to `\`, `/` to `\div`, `\Diamond` to `<>`, etc.
+1. Replace the following symbols as indicated: change `∈` to `\\in`, `∧` to `/\\`, `∃` to `\\E`, `U` to `\\cup`, `\\setminus` to `\\`, `/` to `\\div`, `\\Diamond` to `<>`, etc.
 2. If the specification uses Cardinality and natural number operations, make sure to EXTENDS FiniteSets, Naturals, Sequences, TLC first.
 3. Generate TLA+, do not generate PlusCal. The MODULE name must be `generated_spec`.
 4. **CONSTANTS and VARIABLES must strictly follow the json settings**. Do not add or delete VARIABLES and CONSTANTS.
 5. If the property in Properties has spec_instance, then it should be written strictly according to spec_instance. And don't use Placeholder.
-6. Each part of the generated TLA+ code should be strictly generated according to JSON, especially the receivedS variable's init logic. Ensure the ELSE branch is truly unconstrained (a set of functions), not just hardcoded to empty strings. NEVER use `CHOOSE` in the ELSE branch. Because the ELSE branch represents an unconstrained set of functions, it requires the membership operator (`\in`) instead of equality (`=`).
+6. Each part of the generated TLA+ code should be strictly generated according to JSON, especially the receivedS variable's init logic. Ensure the ELSE branch is truly unconstrained (a set of functions), not just hardcoded to empty strings. NEVER use `CHOOSE` in the ELSE branch. Because the ELSE branch represents an unconstrained set of functions, it requires the membership operator (`\\in`) instead of equality (`=`).
 7. The module body must include: `vars == <<sender, receivedS, delivered, receivedE, receivedR>>` (The variable names in `vars` must match the VARIABLES declared at the top of the module.)
 8. Append a single configuration block at the end of the file and **use exactly the format below — do not duplicate it, do not add extra separators or comments**.
 
