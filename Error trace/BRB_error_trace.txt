@@ -1,0 +1,145 @@
+<<
+[
+ _TEAction |-> [
+   position |-> 1,
+   name |-> "Initial predicate",
+   location |-> "Unknown location"
+ ],
+ delivered |-> (p1 :> "" @@ p2 :> "" @@ p3 :> ""),
+ receivedS |-> (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2),
+ receivedVote |-> ( p1 :> (v1 :> {} @@ v2 :> {}) @@
+  p2 :> (v1 :> {} @@ v2 :> {}) @@
+  p3 :> (v1 :> {} @@ v2 :> {}) ),
+ sender |-> p4
+],
+[
+ _TEAction |-> [
+   position |-> 2,
+   name |-> "ByzantineVote",
+   location |-> "line 60, col 5 to line 64, col 49 of module BRB"
+ ],
+ delivered |-> (p1 :> "" @@ p2 :> "" @@ p3 :> ""),
+ receivedS |-> (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2),
+ receivedVote |-> ( p1 :> (v1 :> {} @@ v2 :> {}) @@
+  p2 :> (v1 :> {p4} @@ v2 :> {}) @@
+  p3 :> (v1 :> {} @@ v2 :> {}) ),
+ sender |-> p4
+],
+[
+ _TEAction |-> [
+   position |-> 3,
+   name |-> "ByzantineVote",
+   location |-> "line 60, col 5 to line 64, col 49 of module BRB"
+ ],
+ delivered |-> (p1 :> "" @@ p2 :> "" @@ p3 :> ""),
+ receivedS |-> (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2),
+ receivedVote |-> ( p1 :> (v1 :> {} @@ v2 :> {p4}) @@
+  p2 :> (v1 :> {p4} @@ v2 :> {}) @@
+  p3 :> (v1 :> {} @@ v2 :> {}) ),
+ sender |-> p4
+],
+[
+ _TEAction |-> [
+   position |-> 4,
+   name |-> "ByzantineVote",
+   location |-> "line 60, col 5 to line 64, col 49 of module BRB"
+ ],
+ delivered |-> (p1 :> "" @@ p2 :> "" @@ p3 :> ""),
+ receivedS |-> (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2),
+ receivedVote |-> ( p1 :> (v1 :> {p4} @@ v2 :> {p4}) @@
+  p2 :> (v1 :> {p4} @@ v2 :> {}) @@
+  p3 :> (v1 :> {} @@ v2 :> {}) ),
+ sender |-> p4
+],
+[
+ _TEAction |-> [
+   position |-> 5,
+   name |-> "SendVote",
+   location |-> "line 40, col 5 to line 47, col 49 of module BRB"
+ ],
+ delivered |-> (p1 :> "" @@ p2 :> "" @@ p3 :> ""),
+ receivedS |-> (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2),
+ receivedVote |-> ( p1 :> (v1 :> {p1, p4} @@ v2 :> {p4}) @@
+  p2 :> (v1 :> {p1, p4} @@ v2 :> {}) @@
+  p3 :> (v1 :> {p1} @@ v2 :> {}) ),
+ sender |-> p4
+],
+[
+ _TEAction |-> [
+   position |-> 6,
+   name |-> "ByzantineVote",
+   location |-> "line 60, col 5 to line 64, col 49 of module BRB"
+ ],
+ delivered |-> (p1 :> "" @@ p2 :> "" @@ p3 :> ""),
+ receivedS |-> (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2),
+ receivedVote |-> ( p1 :> (v1 :> {p1, p4} @@ v2 :> {p4}) @@
+  p2 :> (v1 :> {p1, p4} @@ v2 :> {}) @@
+  p3 :> (v1 :> {p1} @@ v2 :> {p4}) ),
+ sender |-> p4
+],
+[
+ _TEAction |-> [
+   position |-> 7,
+   name |-> "SendVote",
+   location |-> "line 40, col 5 to line 47, col 49 of module BRB"
+ ],
+ delivered |-> (p1 :> "" @@ p2 :> "" @@ p3 :> ""),
+ receivedS |-> (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2),
+ receivedVote |-> ( p1 :> (v1 :> {p1, p2, p4} @@ v2 :> {p4}) @@
+  p2 :> (v1 :> {p1, p2, p4} @@ v2 :> {}) @@
+  p3 :> (v1 :> {p1, p2} @@ v2 :> {p4}) ),
+ sender |-> p4
+],
+[
+ _TEAction |-> [
+   position |-> 8,
+   name |-> "SendVote",
+   location |-> "line 40, col 5 to line 47, col 49 of module BRB"
+ ],
+ delivered |-> (p1 :> "" @@ p2 :> "" @@ p3 :> ""),
+ receivedS |-> (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2),
+ receivedVote |-> ( p1 :> (v1 :> {p1, p2, p4} @@ v2 :> {p3, p4}) @@
+  p2 :> (v1 :> {p1, p2, p4} @@ v2 :> {p3}) @@
+  p3 :> (v1 :> {p1, p2} @@ v2 :> {p3, p4}) ),
+ sender |-> p4
+],
+[
+ _TEAction |-> [
+   position |-> 9,
+   name |-> "ByzantineVote",
+   location |-> "line 60, col 5 to line 64, col 49 of module BRB"
+ ],
+ delivered |-> (p1 :> "" @@ p2 :> "" @@ p3 :> ""),
+ receivedS |-> (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2),
+ receivedVote |-> ( p1 :> (v1 :> {p1, p2, p4} @@ v2 :> {p3, p4}) @@
+  p2 :> (v1 :> {p1, p2, p4} @@ v2 :> {p3, p4}) @@
+  p3 :> (v1 :> {p1, p2} @@ v2 :> {p3, p4}) ),
+ sender |-> p4
+],
+[
+ _TEAction |-> [
+   position |-> 10,
+   name |-> "StepCommit",
+   location |-> "line 51, col 5 to line 56, col 52 of module BRB"
+ ],
+ delivered |-> (p1 :> v1 @@ p2 :> "" @@ p3 :> ""),
+ receivedS |-> (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2),
+ receivedVote |-> ( p1 :> (v1 :> {p1, p2, p4} @@ v2 :> {p3, p4}) @@
+  p2 :> (v1 :> {p1, p2, p4} @@ v2 :> {p3, p4}) @@
+  p3 :> (v1 :> {p1, p2} @@ v2 :> {p3, p4}) ),
+ sender |-> p4
+],
+[
+ _TEAction |-> [
+   position |-> 11,
+   name |-> "StepCommit",
+   location |-> "line 51, col 5 to line 56, col 52 of module BRB"
+ ],
+ delivered |-> (p1 :> v1 @@ p2 :> v1 @@ p3 :> ""),
+ receivedS |-> (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2),
+ receivedVote |-> ( p1 :> (v1 :> {p1, p2, p4} @@ v2 :> {p3, p4}) @@
+  p2 :> (v1 :> {p1, p2, p4} @@ v2 :> {p3, p4}) @@
+  p3 :> (v1 :> {p1, p2} @@ v2 :> {p3, p4}) ),
+ sender |-> p4
+]
+>>
