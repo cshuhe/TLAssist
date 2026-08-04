@@ -1,0 +1,5 @@
+Propose. The designated broadcaster 𝐿 with input 𝑣 sends ⟨propose, 𝑣⟩ to all parties.
+Vote. When receiving the first proposal ⟨propose, 𝑣⟩ from the broadcaster, send a vote message for 𝑣 to
+all parties in the form of ⟨vote, 𝑣⟩𝑖.
+Commit. When receiving 𝑛 − 𝑓 signed vote messages for 𝑣, forward these vote messages to all other
+parties, commit 𝑣 and terminate.
