@@ -226,8 +226,8 @@ Next ==
     \/ \E self \in Faulty :
           \/ ByzantineEcho(self)
           \/ ByzantineReady(self)
-\*          \/ ByzantineDisperse(self)
-\*          \/ ByzantineReconstruct(self)
+          \/ ByzantineDisperse(self)
+          \/ ByzantineReconstruct(self)
 
 Fairness ==
     /\ \A self \in Correct : WF_vars(SendEcho(self))
@@ -255,6 +255,3 @@ Validity ==
         LET Val == IF sender \in Correct THEN receivedS[sender] ELSE ""
         IN <>((\A p \in Correct : delivered[p] = Val))
 =============================================================================
-\* Modification History
-\* Last modified Wed Aug 05 13:44:33 CST 2026 by 14183
-\* Created Wed Aug 05 12:00:51 CST 2026 by 14183
