@@ -2,40 +2,47 @@
 EXTENDS FiniteSets, Naturals, Sequences, TLC
 
 CONSTANTS
-    Correct,  \* Set of correct processes
-    Faulty,   \* Set of Byzantine faulty processes
-    V         \* Set of values that may be broadcast
+    Correct,   \* Set of correct processes
+    Faulty,    \* Set of Byzantine faulty processes
+    V,         \* Set of values that may be broadcast
+    Symbols    \* Abstract set of Reed-Solomon share symbols
 
 VARIABLES
-    sender,      \* The designated sender process
-    receivedS,   \* Mapping from each process to the value it has received from the sender
-    delivered,   \* Delivered value of each correct process, or empty string if undecided
-    receivedE,   \* receivedE[p][h] is the set of processes whose ECHO(h) has been received by p
-    receivedR,   \* receivedR[p][h] is the set of processes whose READY(h) has been received by p
-    addInput     \* addInput[p] records the input to ADD for process p: either a value from V or ⊥
+    sender,        \* Designated broadcaster
+    receivedS,     \* receivedS[p] is proposal received by correct p, or ""
+    delivered,     \* delivered[p] is RBC output, or ""
+    receivedE,     \* receivedE[p][h] is set of ECHO(h) senders seen by p
+    receivedR,     \* receivedR[p][h] is set of READY(h) senders seen by p
+    addInput,      \* ADD input of correct p: value, Bottom, or "" before start
+    mStar,         \* Fixed reconstruction symbol of each process, or ""
+    receivedDis,   \* receivedDis[p][sym] is set of DISPERSE senders
+    receivedRec,   \* receivedRec[p] is set of <<source, symbol>> pairs
+    decodeRound    \* Current online-error-correction round r
 
-vars == <<sender, receivedS, delivered, receivedE, receivedR, addInput>>
+vars ==
+    <<sender, receivedS, delivered, receivedE, receivedR, addInput,
+      mStar, receivedDis, receivedRec, decodeRound>>
 
-\* Process set
 P == Correct \cup Faulty
-
-\* Fault tolerance parameter
 F == Cardinality(Faulty)
 
-\* Hash abstraction: deterministic mapping from values to hashes
-Hashes == V \cup {"h_bottom"}
-
-Hash(m) == IF m \in V THEN m ELSE "h_bottom"
-
-\* Predicate P(M) - assumed to hold for all values in V
+Hashes == V 
+Hash(m) == m
 Predicate(m) == m \in V
 
-\* Bottom value for ADD
 Bottom == "bottom"
+SymbolOf ==
+    CHOOSE f \in [P -> Symbols] :
+        \A p, q \in P : (p # q) => (f[p] # f[q])
+RecSenders(p) ==
+    {src \in P : \E sym \in Symbols : <<src, sym>> \in receivedRec[p]}
+MatchingRecSenders(p) ==
+    {src \in P : <<src, SymbolOf[src]>> \in receivedRec[p]}
+ADDValues ==
+    {m \in V : \E p \in Correct : addInput[p] = m}
 
-\* -----------------------------------------------------------------------------
-\* Initial state
-\* -----------------------------------------------------------------------------
+DecodedADDValue ==
+    CHOOSE m \in ADDValues : TRUE
 
 Init ==
     /\ sender \in (Faulty \cup {CHOOSE p \in Correct : TRUE})
@@ -47,10 +54,10 @@ Init ==
     /\ receivedE = [p \in Correct |-> [h \in Hashes |-> {}]]
     /\ receivedR = [p \in Correct |-> [h \in Hashes |-> {}]]
     /\ addInput = [p \in Correct |-> ""]
-
-\* -----------------------------------------------------------------------------
-\* Type invariant
-\* -----------------------------------------------------------------------------
+    /\ mStar = [p \in P |-> ""]
+    /\ receivedDis = [p \in P |-> [sym \in Symbols |-> {}]]
+    /\ receivedRec = [p \in P |-> {}]
+    /\ decodeRound = [p \in P |-> 0]
 
 TypeInv ==
     /\ sender \in P
@@ -59,10 +66,10 @@ TypeInv ==
     /\ receivedE \in [Correct -> [Hashes -> SUBSET P]]
     /\ receivedR \in [Correct -> [Hashes -> SUBSET P]]
     /\ addInput \in [Correct -> V \cup {Bottom, ""}]
-
-\* -----------------------------------------------------------------------------
-\* Actions
-\* -----------------------------------------------------------------------------
+    /\ mStar \in [P -> Symbols \cup {""}]
+    /\ receivedDis \in [P -> [Symbols -> SUBSET P]]
+    /\ receivedRec \in [P -> SUBSET (P \X Symbols)]
+    /\ decodeRound \in [P -> 0..F]
 
 SendEcho(self) ==
     /\ self \in Correct
@@ -70,104 +77,184 @@ SendEcho(self) ==
     /\ Predicate(receivedS[self])
     /\ \A h \in Hashes : self \notin receivedE[self][h]
     /\ LET h == Hash(receivedS[self])
-       IN receivedE' = [p \in Correct |-> [hh \in Hashes |->
-                           IF hh = h THEN receivedE[p][hh] \cup {self}
-                           ELSE receivedE[p][hh]]]
-    /\ UNCHANGED <<sender, receivedS, delivered, receivedR, addInput>>
+       IN receivedE' =
+            [p \in Correct |->
+                [hh \in Hashes |->
+                    IF hh = h
+                    THEN receivedE[p][hh] \cup {self}
+                    ELSE receivedE[p][hh]]]
+    /\ UNCHANGED <<sender, receivedS, delivered, receivedR, addInput,
+          mStar, receivedDis, receivedRec, decodeRound>>
 
 SendReady(self) ==
     /\ self \in Correct
     /\ \A h \in Hashes : self \notin receivedR[self][h]
     /\ \E h \in Hashes :
-        \/ Cardinality(receivedE[self][h]) >= 2 * F + 1
-        \/ Cardinality(receivedR[self][h]) >= F + 1
+          \/ Cardinality(receivedE[self][h]) >= 2 * F + 1
+          \/ Cardinality(receivedR[self][h]) >= F + 1
     /\ LET h == CHOOSE hh \in Hashes :
                     \/ Cardinality(receivedE[self][hh]) >= 2 * F + 1
                     \/ Cardinality(receivedR[self][hh]) >= F + 1
-       IN receivedR' = [p \in Correct |-> [hh \in Hashes |->
-                           IF hh = h THEN receivedR[p][hh] \cup {self}
-                           ELSE receivedR[p][hh]]]
-    /\ UNCHANGED <<sender, receivedS, delivered, receivedE, addInput>>
+       IN receivedR' =
+            [p \in Correct |->
+                [hh \in Hashes |->
+                    IF hh = h
+                    THEN receivedR[p][hh] \cup {self}
+                    ELSE receivedR[p][hh]]]
+    /\ UNCHANGED <<sender, receivedS, delivered, receivedE, addInput,
+          mStar, receivedDis, receivedRec, decodeRound>>
 
 StepCommit(self) ==
     /\ self \in Correct
     /\ addInput[self] = ""
-    /\ \E h \in Hashes : Cardinality(receivedR[self][h]) >= 2 * F + 1
-    /\ LET h == CHOOSE hh \in Hashes : Cardinality(receivedR[self][hh]) >= 2 * F + 1
-       IN addInput' = [addInput EXCEPT ![self] =
-                          IF receivedS[self] \in V /\ h = Hash(receivedS[self])
-                          THEN receivedS[self]
-                          ELSE Bottom]
-    /\ UNCHANGED <<sender, receivedS, delivered, receivedE, receivedR>>
-
-FinalDeliver(self) ==
-    /\ self \in Correct
-    /\ addInput[self] \in V \cup {Bottom}
-    /\ delivered[self] = ""
-    /\ delivered' = [delivered EXCEPT ![self] =
-                        IF addInput[self] \in V
-                        THEN addInput[self]
-                        ELSE ""]
-    /\ UNCHANGED <<sender, receivedS, receivedE, receivedR, addInput>>
+    /\ \E h \in Hashes :
+          Cardinality(receivedR[self][h]) >= 2 * F + 1
+    /\ LET h == CHOOSE hh \in Hashes :
+                    Cardinality(receivedR[self][hh]) >= 2 * F + 1
+       IN addInput' =
+            [addInput EXCEPT![self] =
+                    IF receivedS[self] \in V /\ h = Hash(receivedS[self])
+                    THEN receivedS[self]
+                    ELSE Bottom]
+    /\ UNCHANGED <<sender, receivedS, delivered, receivedE, receivedR,
+          mStar, receivedDis, receivedRec, decodeRound>>
 
 ByzantineEcho(self) ==
     /\ self \in Faulty
     /\ \E d \in Correct, h \in Hashes :
-        /\ self \notin receivedE[d][h]
-        /\ receivedE' = [receivedE EXCEPT ![d][h] = @ \cup {self}]
-    /\ UNCHANGED <<sender, receivedS, delivered, receivedR, addInput>>
+          /\ self \notin receivedE[d][h]
+          /\ receivedE' = [receivedE EXCEPT ![d][h] = @ \cup {self}]
+    /\ UNCHANGED <<sender, receivedS, delivered, receivedR, addInput,
+          mStar, receivedDis, receivedRec, decodeRound>>
 
 ByzantineReady(self) ==
     /\ self \in Faulty
     /\ \E d \in Correct, h \in Hashes :
-        /\ self \notin receivedR[d][h]
-        /\ receivedR' = [receivedR EXCEPT ![d][h] = @ \cup {self}]
-    /\ UNCHANGED <<sender, receivedS, delivered, receivedE, addInput>>
+          /\ self \notin receivedR[d][h]
+          /\ receivedR' = [receivedR EXCEPT ![d][h] = @ \cup {self}]
+    /\ UNCHANGED <<sender, receivedS, delivered, receivedE, addInput,
+          mStar, receivedDis, receivedRec, decodeRound>>
 
-\* -----------------------------------------------------------------------------
-\* Next state relation
-\* -----------------------------------------------------------------------------
+SendDisperse(self) ==
+    /\ self \in Correct
+    /\ addInput[self] \in V
+    /\ mStar[self] = ""
+    /\ mStar' = [mStar EXCEPT ![self] = SymbolOf[self]]
+    /\ receivedDis' =
+          [p \in P |->
+              [sym \in Symbols |->
+                  IF sym = SymbolOf[p]
+                  THEN receivedDis[p][sym] \cup {self}
+                  ELSE receivedDis[p][sym]]]
+    /\ UNCHANGED <<sender, receivedS, delivered, receivedE, receivedR,
+          addInput, receivedRec, decodeRound>>
+
+ReceiveDisperse(self) ==
+    /\ self \in Correct
+    /\ addInput[self] = Bottom
+    /\ mStar[self] = ""
+    /\ \E sym \in Symbols :
+          Cardinality(receivedDis[self][sym]) >= F + 1
+    /\ LET sym0 == CHOOSE sym \in Symbols :
+                        Cardinality(receivedDis[self][sym]) >= F + 1
+       IN mStar' = [mStar EXCEPT ![self] = sym0]
+    /\ UNCHANGED <<sender, receivedS, delivered, receivedE, receivedR,
+          addInput, receivedDis, receivedRec, decodeRound>>
+
+SendReconstruct(self) ==
+    /\ self \in Correct
+    /\ mStar[self] \in Symbols
+    /\ \A p \in P :
+          <<self, mStar[self]>> \notin receivedRec[p]
+    /\ receivedRec' =
+          [p \in P |->
+              receivedRec[p] \cup {<<self, mStar[self]>>}]
+    /\ delivered' =
+          [delivered EXCEPT![self] =
+                  IF addInput[self] \in V
+                  THEN addInput[self]
+                  ELSE delivered[self]]
+    /\ UNCHANGED <<sender, receivedS, receivedE, receivedR, addInput,
+          mStar, receivedDis, decodeRound>>
+
+TryDecode(self) ==
+    /\ self \in Correct
+    /\ addInput[self] = Bottom
+    /\ delivered[self] = ""
+    /\ LET r == decodeRound[self]
+           matching == MatchingRecSenders(self)
+       IN /\ r <= F
+          /\ Cardinality(receivedRec[self]) >= 2 * F + r + 1
+          /\ IF Cardinality(matching) >= 2 * F + 1
+                THEN /\ ADDValues # {}
+                     /\ delivered' = [delivered EXCEPT ![self] = DecodedADDValue]
+                     /\ UNCHANGED decodeRound
+                ELSE /\ r < F
+                     /\ decodeRound' =
+                           [decodeRound EXCEPT ![self] = r + 1]
+                     /\ UNCHANGED delivered
+    /\ UNCHANGED <<sender, receivedS, receivedE, receivedR, addInput,
+          mStar, receivedDis, receivedRec>>
+
+ByzantineDisperse(self) ==
+    /\ self \in Faulty
+    /\ \E d \in Correct :
+        LET wrongSym == CHOOSE s \in Symbols : s # SymbolOf[d]
+        IN \E sym \in { SymbolOf[d], wrongSym } :
+            receivedDis' = [receivedDis EXCEPT ![d][sym] = @ \cup {self}]
+    /\ UNCHANGED <<sender, receivedS, delivered, receivedE, receivedR,
+          addInput, mStar, receivedRec, decodeRound>>
+
+ByzantineReconstruct(self) ==
+    /\ self \in Faulty
+    /\ \E d \in Correct :
+        LET wrongSym == CHOOSE s \in Symbols : s # SymbolOf[d]
+        IN \E sym \in { SymbolOf[d], wrongSym } :
+           receivedRec' = [receivedRec EXCEPT ![d] = @ \cup {<<self, sym>>}]
+    /\ UNCHANGED <<sender, receivedS, delivered, receivedE, receivedR,
+          addInput, mStar, receivedDis, decodeRound>>
 
 Next ==
     \/ \E self \in Correct :
-        \/ SendEcho(self)
-        \/ SendReady(self)
-        \/ StepCommit(self)
-        \/ FinalDeliver(self)
+          \/ SendEcho(self)
+          \/ SendReady(self)
+          \/ StepCommit(self)
+          \/ SendDisperse(self)
+          \/ ReceiveDisperse(self)
+          \/ SendReconstruct(self)
+          \/ TryDecode(self)
     \/ \E self \in Faulty :
-        \/ ByzantineEcho(self)
-        \/ ByzantineReady(self)
-
-\* -----------------------------------------------------------------------------
-\* Fairness and specification
-\* -----------------------------------------------------------------------------
+          \/ ByzantineEcho(self)
+          \/ ByzantineReady(self)
+\*          \/ ByzantineDisperse(self)
+\*          \/ ByzantineReconstruct(self)
 
 Fairness ==
     /\ \A self \in Correct : WF_vars(SendEcho(self))
     /\ \A self \in Correct : WF_vars(SendReady(self))
     /\ \A self \in Correct : WF_vars(StepCommit(self))
-    /\ \A self \in Correct : WF_vars(FinalDeliver(self))
+    /\ \A self \in Correct : WF_vars(SendDisperse(self))
+    /\ \A self \in Correct : WF_vars(ReceiveDisperse(self))
+    /\ \A self \in Correct : WF_vars(SendReconstruct(self))
+    /\ \A self \in Correct : WF_vars(TryDecode(self))
 
 Spec == Init /\ [][Next]_vars /\ Fairness
 
-\* -----------------------------------------------------------------------------
-\* Safety invariants
-\* -----------------------------------------------------------------------------
-
 Consistency ==
     \A p, q \in Correct :
-        (delivered[p] # "" /\ delivered[q] # "") => delivered[p] = delivered[q]
-
-\* -----------------------------------------------------------------------------
-\* Liveness properties
-\* -----------------------------------------------------------------------------
+        (delivered[p] # "" /\ delivered[q] # "")
+        => delivered[p] = delivered[q]
 
 Totality ==
-    (\E p \in Correct : delivered[p] # "") ~> (\A p \in Correct : delivered[p] # "")
+    (\E p \in Correct : delivered[p] # "")
+    ~>
+    (\A p \in Correct : delivered[p] # "")
 
 Validity ==
     (sender \in Correct) =>
         LET Val == IF sender \in Correct THEN receivedS[sender] ELSE ""
         IN <>((\A p \in Correct : delivered[p] = Val))
-
 =============================================================================
+\* Modification History
+\* Last modified Wed Aug 05 13:44:33 CST 2026 by 14183
+\* Created Wed Aug 05 12:00:51 CST 2026 by 14183
