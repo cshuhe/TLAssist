@@ -28,7 +28,7 @@ python3 -m pip install requests
 API_KEY = "YOUR_API_KEY_HERE"   
 url = "YOUR_API_BASE_URL_HERE"
 ```
-Before running the experiment, replace `YOUR_API_KEY_HERE` and `YOUR_API_BASE_URL_HERE` with your own API key and url in `generate.py` and `gen_TLA.py`. We recommend using a Claude API key. The default LLM is Claude Sonnet 4.5 (`claude-sonnet-4-5-20250929`). 
+Before running the experiment, replace `YOUR_API_KEY_HERE` and `YOUR_API_BASE_URL_HERE` with your own API key and url in `generate.py` and `gen_TLA.py`. This artifact uses an OpenAI-compatible API endpoint rather than Anthropic's native API. The API_BASE_URL must point to an OpenAI-compatible endpoint that serves Claude Sonnet 4.5. We recommend using a Claude API key. The default LLM is Claude Sonnet 4.5 (`claude-sonnet-4-5-20250929`). 
 
 If testers need the API key for artifact evaluation, please contact us via HotCRP.
 
