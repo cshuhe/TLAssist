@@ -105,7 +105,23 @@ Post-separator notes saved to /home/ubuntu/final_validated_spec.txt
 final state: TLC verification successful!
 ```
 
-#### 1.3.5 Notes
+#### 1.3.5 Run an existing TLA+ specification directly
+All specifications in `Target_TLA_Specification/` have a `.cfg` file.
+The script automatically pairs `Name.tla` with `Name.cfg`, so you only need to provide the module name:
+```bash
+chmod +x tla-run
+# From the repository
+./tla-run AEB
+./tla-run BRB
+
+# Equivalent Python form
+python3 run_tla.py AEB
+
+# Show all available specifications and whether a cfg exists
+./tla-run --list
+```
+
+#### 1.3.6 Notes
 Make sure `tla2tools.jar` is placed in the expected directory before running TLA<sup>+</sup> related checks.
 If you want to generate TLA<sup>+</sup> specifications for protocols other than `Bracha's broadcast`, modify the corresponding input settings in `generate.py` and `gen_TLA.py`.
 If you verify TLA<sup>+</sup> specifications with TLC model checker, it will by default try to reserve 8GB of memory and will use 8 CPU cores. The TLC model-checking time may vary depending on the pseudocode and the machine used; for Bracha's broadcast, it usually finishes within few minutes.
