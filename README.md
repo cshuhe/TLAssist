@@ -106,9 +106,10 @@ final state: TLC verification successful!
 ```
 
 #### 1.3.5 Run an existing TLA+ specification directly
-All specifications in `Target_TLA_Specification/` have a `.cfg` file.
+All specifications in `Target_TLA_Specification` have a `.cfg` file.
 The script automatically pairs `Name.tla` with `Name.cfg`, so you only need to provide the module name:
 ```bash
+cd ..
 chmod +x tla-run
 # From the repository
 ./tla-run AEB
