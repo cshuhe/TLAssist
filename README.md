@@ -19,7 +19,7 @@ sudo apt update
 sudo apt install default-jre -y
 wget https://github.com/tlaplus/tlaplus/releases/latest/download/tla2tools.jar
 sudo apt install python3-pip
-python3 -m pip install requests
+sudo apt install python3-requests
 ```
 
 ### 1.3 Execution
