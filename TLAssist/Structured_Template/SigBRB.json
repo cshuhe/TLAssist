@@ -232,6 +232,11 @@
       "name": "Validity",
       "description": "If the sender is correct, all correct processes eventually decide its value",
       "spec_instance": "(sender ∈ Correct) ⇒ LET Val == IF sender ∈ Correct THEN receivedS[sender] ELSE \"\" IN ◇(∀ p ∈ Correct : delivered[p] = Val)"
+    },
+    {
+      "name": "Validity",
+      "description": "If the broadcaster is correct, all correct processes eventually decide its value",
+      "spec_instance": "(broadcaster ∈ Correct) ⇒ ◇(∀ i ∈ Correct : delivered[i] = receivep[broadcaster])"
     }
   ],
   "llm_hint": {
