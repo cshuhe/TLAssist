@@ -36,7 +36,8 @@ If testers need the API key for artifact evaluation, please contact us via HotCR
 #### 1.3.2 Generate Structured Template for Target Pseudocode
 Run the following command to generate the stuctured JSON template corresponding to the target pseudocode:
 ```bash
-python3 TLAssist/generate.py
+cd TLAssist
+python3 generate.py
 ```
 By default, `generate.py` generates the stuctured JSON template for Bracha's broadcast.
 
