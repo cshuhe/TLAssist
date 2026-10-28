@@ -1,0 +1,91 @@
+State 1: <Initial predicate>
+/\ sender = p4
+/\ receivedVote = ( p1 :> (v1 :> {} @@ v2 :> {}) @@
+  p2 :> (v1 :> {} @@ v2 :> {}) @@
+  p3 :> (v1 :> {} @@ v2 :> {}) )
+/\ receivedS = (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2)
+/\ delivered = (p1 :> "" @@ p2 :> "" @@ p3 :> "")
+
+State 2: <ByzantineVote line 60, col 5 to line 64, col 49 of module BRB_no_totality>
+/\ sender = p4
+/\ receivedVote = ( p1 :> (v1 :> {p4} @@ v2 :> {}) @@
+  p2 :> (v1 :> {} @@ v2 :> {}) @@
+  p3 :> (v1 :> {} @@ v2 :> {}) )
+/\ receivedS = (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2)
+/\ delivered = (p1 :> "" @@ p2 :> "" @@ p3 :> "")
+
+State 3: <ByzantineVote line 60, col 5 to line 64, col 49 of module BRB_no_totality>
+/\ sender = p4
+/\ receivedVote = ( p1 :> (v1 :> {p4} @@ v2 :> {p4}) @@
+  p2 :> (v1 :> {} @@ v2 :> {}) @@
+  p3 :> (v1 :> {} @@ v2 :> {}) )
+/\ receivedS = (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2)
+/\ delivered = (p1 :> "" @@ p2 :> "" @@ p3 :> "")
+
+State 4: <SendVote line 40, col 5 to line 47, col 49 of module BRB_no_totality>
+/\ sender = p4
+/\ receivedVote = ( p1 :> (v1 :> {p4} @@ v2 :> {p3, p4}) @@
+  p2 :> (v1 :> {} @@ v2 :> {p3}) @@
+  p3 :> (v1 :> {} @@ v2 :> {p3}) )
+/\ receivedS = (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2)
+/\ delivered = (p1 :> "" @@ p2 :> "" @@ p3 :> "")
+
+State 5: <SendVote line 40, col 5 to line 47, col 49 of module BRB_no_totality>
+/\ sender = p4
+/\ receivedVote = ( p1 :> (v1 :> {p2, p4} @@ v2 :> {p3, p4}) @@
+  p2 :> (v1 :> {p2} @@ v2 :> {p3}) @@
+  p3 :> (v1 :> {p2} @@ v2 :> {p3}) )
+/\ receivedS = (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2)
+/\ delivered = (p1 :> "" @@ p2 :> "" @@ p3 :> "")
+
+State 6: <ByzantineVote line 60, col 5 to line 64, col 49 of module BRB_no_totality>
+/\ sender = p4
+/\ receivedVote = ( p1 :> (v1 :> {p2, p4} @@ v2 :> {p3, p4}) @@
+  p2 :> (v1 :> {p2} @@ v2 :> {p3}) @@
+  p3 :> (v1 :> {p2} @@ v2 :> {p3, p4}) )
+/\ receivedS = (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2)
+/\ delivered = (p1 :> "" @@ p2 :> "" @@ p3 :> "")
+
+State 7: <ByzantineVote line 60, col 5 to line 64, col 49 of module BRB_no_totality>
+/\ sender = p4
+/\ receivedVote = ( p1 :> (v1 :> {p2, p4} @@ v2 :> {p3, p4}) @@
+  p2 :> (v1 :> {p2} @@ v2 :> {p3}) @@
+  p3 :> (v1 :> {p2, p4} @@ v2 :> {p3, p4}) )
+/\ receivedS = (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2)
+/\ delivered = (p1 :> "" @@ p2 :> "" @@ p3 :> "")
+
+State 8: <ByzantineVote line 60, col 5 to line 64, col 49 of module BRB_no_totality>
+/\ sender = p4
+/\ receivedVote = ( p1 :> (v1 :> {p2, p4} @@ v2 :> {p3, p4}) @@
+  p2 :> (v1 :> {p2} @@ v2 :> {p3, p4}) @@
+  p3 :> (v1 :> {p2, p4} @@ v2 :> {p3, p4}) )
+/\ receivedS = (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2)
+/\ delivered = (p1 :> "" @@ p2 :> "" @@ p3 :> "")
+
+State 9: <SendVote line 40, col 5 to line 47, col 49 of module BRB_no_totality>
+/\ sender = p4
+/\ receivedVote = ( p1 :> (v1 :> {p1, p2, p4} @@ v2 :> {p3, p4}) @@
+  p2 :> (v1 :> {p1, p2} @@ v2 :> {p3, p4}) @@
+  p3 :> (v1 :> {p1, p2, p4} @@ v2 :> {p3, p4}) )
+/\ receivedS = (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2)
+/\ delivered = (p1 :> "" @@ p2 :> "" @@ p3 :> "")
+
+State 10: <StepCommit line 51, col 5 to line 56, col 52 of module BRB_no_totality>
+/\ sender = p4
+/\ receivedVote = ( p1 :> (v1 :> {p1, p2, p4} @@ v2 :> {p3, p4}) @@
+  p2 :> (v1 :> {p1, p2} @@ v2 :> {p3, p4}) @@
+  p3 :> (v1 :> {p1, p2, p4} @@ v2 :> {p3, p4}) )
+/\ receivedS = (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2)
+/\ delivered = (p1 :> v1 @@ p2 :> "" @@ p3 :> "")
+
+State 11: <StepCommit line 51, col 5 to line 56, col 52 of module BRB_no_totality>
+/\ sender = p4
+/\ receivedVote = ( p1 :> (v1 :> {p1, p2, p4} @@ v2 :> {p3, p4}) @@
+  p2 :> (v1 :> {p1, p2} @@ v2 :> {p3, p4}) @@
+  p3 :> (v1 :> {p1, p2, p4} @@ v2 :> {p3, p4}) )
+/\ receivedS = (p1 :> v1 @@ p2 :> v1 @@ p3 :> v2)
+/\ delivered = (p1 :> v1 @@ p2 :> "" @@ p3 :> v1)
+
+State 12: Stuttering
+Finished checking temporal properties in 13s at 2026-10-28 14:17:50
+59776 states generated, 13960 distinct states found, 0 states left on queue.
