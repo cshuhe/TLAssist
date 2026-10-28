@@ -32,11 +32,15 @@ Before running the experiment, replace `YOUR_API_KEY_HERE` and `YOUR_API_BASE_UR
 
 If testers need the API key for artifact evaluation, please contact us via HotCRP.
 
+The API configuration is needed only for generating specifications from pseudocode. Running the shipped specifications with `tla-run` does not require an API key; see Section 1.3.5.
+
 
 #### 1.3.2 Generate Structured Template for Target Pseudocode
-Run the following command to generate the stuctured JSON template corresponding to the target pseudocode:
+Run the following command to generate the stuctured JSON template corresponding to the target pseudocode. Run it from the inner `TLAssist/` directory containing `generate.py` and `draft.md`. If you are at the repository root, enter this directory with `cd TLAssist` first.
+
+**Template overwrite:** `generate.py` writes to `TLAssist/Structured_Template/<name>.json` (path relative to the repository root) and overwrites an existing file with that name. The default `name` is `BrachaRBC`, so the default output overwrites the shipped `TLAssist/Structured_Template/BrachaRBC.json`. Back up the shipped template before regenerating it if you want to preserve the original.
+
 ```bash
-cd TLAssist
 python3 generate.py
 ```
 By default, `generate.py` generates the stuctured JSON template for Bracha's broadcast.
@@ -78,7 +82,7 @@ Then use the following command to generate the target TLA<sup>+</sup> specificat
 python3 gen_TLA.py
 ```
 The following outputs are expected:
-```
+````text
 Start API connection...
 Generating initial TLA+ specifications...
 
@@ -104,17 +108,21 @@ Config saved to /home/ubuntu/final_validated_spec.cfg
 Post-separator notes saved to /home/ubuntu/final_validated_spec.txt
 
 final state: TLC verification successful!
-```
+````
 
 #### 1.3.5 Run an existing TLA+ specification directly
 All specifications in `Target_TLA_Specification` have a `.cfg` file.
-The script automatically pairs `Name.tla` with `Name.cfg`, so you only need to provide the module name:
+The script automatically pairs `Name.tla` with `Name.cfg`, so you only need to provide the module name.
+
+Run all `./tla-run` commands from the **repository root**: the directory containing `tla-run`, `run_tla.py`, `Target_TLA_Specification/`, and the inner `TLAssist/` directory. If you have just followed the generation steps inside the inner `TLAssist/` directory, run `cd ..` once to return to the repository root. Java and Python are sufficient for running the shipped specifications; no LLM API call is made.
+
 ```bash
-cd ..
+# From the repository root
 chmod +x tla-run
-# From the repository
 ./tla-run AEB
 ./tla-run BRB
+./tla-run BRB_no_totality
+./tla-run SigBRB_no_totality
 
 # Equivalent Python form
 python3 run_tla.py AEB
@@ -126,4 +134,48 @@ python3 run_tla.py AEB
 #### 1.3.6 Notes
 Make sure `tla2tools.jar` is placed in the expected directory before running TLA<sup>+</sup> related checks.
 If you want to generate TLA<sup>+</sup> specifications for protocols other than `Bracha's broadcast`, modify the corresponding input settings in `generate.py` and `gen_TLA.py`.
-If you verify TLA<sup>+</sup> specifications with TLC model checker, it will by default try to reserve 8GB of memory and will use 8 CPU cores. The TLC model-checking time may vary depending on the pseudocode and the machine used; for Bracha's broadcast, it usually finishes within few minutes.
+The runner defaults to 8 TLC workers and an 8 GB maximum Java heap (`-Xmx8G`), with ParallelGC enabled and deadlock checking disabled. The heap setting is a maximum, not a reservation of the machine's total memory. These defaults do not automatically scale with the available hardware. Use `--workers` and `--memory` to change them, for example `./tla-run AEB --workers 2 --memory 4G`. Runtime depends on the model, configuration, checked properties, and hardware; see Section 4 for the available runtime references.
+
+## 2. Artifact contents and additional files
+
+`Target_TLA_Specification/` contains the shipped TLA<sup>+</sup> specifications and TLC configurations. `TLAssist/` contains the pseudocode inputs, structured JSON templates, generation scripts, and `tla2tools.jar`. `Error trace/` contains saved counterexamples. The `tla-run` launcher and `run_tla.py` are located at the repository root.
+
+| File in `Target_TLA_Specification/` | Purpose |
+| --- | --- |
+| `OptimisticRBC_invariant.cfg` | Use with `OptimisticRBC.tla` for the  experiment corresponding to Table 8. |
+| `OptimisticRBC_error_trace.tla` | A scenario-restricted model for quickly reproducing the totality violation in Section 6.1 with `n=10, f=3`. |
+| `OptimisticRBC_error_trace.cfg` | The matching configuration for the model: seven correct processes, three Byzantine processes, and two values. |
+
+The artifact also includes `SigBRB_no_totality.tla` and `SigBRB_no_totality.cfg` for the step-removal experiment in Section 6.2. `BRB_no_totality.tla` and its matching configuration reproduce the corresponding 2-round-BRB experiment.
+
+## 3. Reproducing the additional experiments
+
+All commands in this section must be run from the repository root after `chmod +x tla-run`. 
+
+### 3.1 Section 6.1: OptimisticRBC totality violation
+
+The TLAssist-generated `OptimisticRBC.tla` can expose the totality violation with `n=10, f=3` when configured for that instance. Unrestricted checking is expensive. The default `OptimisticRBC.cfg` uses a smaller instance; for quick reproduction of the reported attack, use `OptimisticRBC_error_trace.tla` and its matching configuration instead:
+
+```bash
+./tla-run OptimisticRBC_error_trace
+```
+
+This version fixes the initial scenario and limits Byzantine behavior to the attack described in Section 6.1, which reduces the state space. Correct-process actions, protocol thresholds, and fairness assumptions are unchanged. In a local test, it found the totality counterexample in a few seconds.
+
+The expected result is a temporal-property violation and a counterexample in which some correct processes deliver a value while other correct processes never deliver. This is the intended outcome of the experiment.
+
+### 3.2 Section 6.2: step-removal experiments
+
+Run the variants with the relevant protocol step removed:
+
+```bash
+# 2-round-BRB
+./tla-run BRB_no_totality
+
+# SigBRB
+./tla-run SigBRB_no_totality
+```
+
+Each command pairs the named `.tla` file with its same-name `.cfg` file in `Target_TLA_Specification/`. The expected result is a totality counterexample. The `_no_totality` suffix names the protocol variant that violates totality; the totality property must still be checked to expose the violation.
+
+TLC can return a nonzero exit status when it finds a counterexample. For these counterexample experiments, this is an expected result; inspect the reported property violation and trace.
