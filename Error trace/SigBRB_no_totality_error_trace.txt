@@ -1,0 +1,228 @@
+State 1: <Initial predicate>
+/\ val = (p2 :> "" @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+/\ delivered = (p2 :> "" @@ p3 :> "" @@ p4 :> "")
+/\ receivedReady = (p2 :> {} @@ p3 :> {} @@ p4 :> {} @@ p1 :> {})
+/\ sender = p1
+/\ receivedFinal = (p2 :> (v1 :> FALSE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE))
+/\ receivedS = (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1)
+/\ receivedRec = (p2 :> {} @@ p3 :> {} @@ p4 :> {} @@ p1 :> {})
+/\ receivedRep = (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {}))
+/\ decodeRound = (p2 :> 0 @@ p3 :> 0 @@ p4 :> 0 @@ p1 :> 0)
+/\ receivedDis = ( p2 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p1 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) )
+/\ mStar = (p2 :> "" @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+
+State 2: <FastByzantineReady line 308, col 5 to line 311, col 59 of module SigBRB>
+/\ val = (p2 :> "" @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+/\ delivered = (p2 :> "" @@ p3 :> "" @@ p4 :> "")
+/\ receivedReady = (p2 :> {} @@ p3 :> {} @@ p4 :> {p1} @@ p1 :> {})
+/\ sender = p1
+/\ receivedFinal = (p2 :> (v1 :> FALSE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE))
+/\ receivedS = (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1)
+/\ receivedRec = (p2 :> {} @@ p3 :> {} @@ p4 :> {} @@ p1 :> {})
+/\ receivedRep = (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {}))
+/\ decodeRound = (p2 :> 0 @@ p3 :> 0 @@ p4 :> 0 @@ p1 :> 0)
+/\ receivedDis = ( p2 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p1 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) )
+/\ mStar = (p2 :> "" @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+
+State 3: <FastByzantineFinal line 290, col 5 to line 292, col 68 of module SigBRB>
+/\ val = (p2 :> "" @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+/\ delivered = (p2 :> "" @@ p3 :> "" @@ p4 :> "")
+/\ receivedReady = (p2 :> {} @@ p3 :> {} @@ p4 :> {p1} @@ p1 :> {})
+/\ sender = p1
+/\ receivedFinal = (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE))
+/\ receivedS = (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1)
+/\ receivedRec = (p2 :> {} @@ p3 :> {} @@ p4 :> {} @@ p1 :> {})
+/\ receivedRep = (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {}))
+/\ decodeRound = (p2 :> 0 @@ p3 :> 0 @@ p4 :> 0 @@ p1 :> 0)
+/\ receivedDis = ( p2 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p1 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) )
+/\ mStar = (p2 :> "" @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+
+State 4: <FastByzantineReconstruct line 301, col 5 to line 305, col 73 of module SigBRB>
+/\ val = (p2 :> "" @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+/\ delivered = (p2 :> "" @@ p3 :> "" @@ p4 :> "")
+/\ receivedReady = (p2 :> {} @@ p3 :> {} @@ p4 :> {p1} @@ p1 :> {})
+/\ sender = p1
+/\ receivedFinal = (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE))
+/\ receivedS = (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1)
+/\ receivedRec = (p2 :> {<<p1, s1>>} @@ p3 :> {} @@ p4 :> {} @@ p1 :> {})
+/\ receivedRep = (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {}))
+/\ decodeRound = (p2 :> 0 @@ p3 :> 0 @@ p4 :> 0 @@ p1 :> 0)
+/\ receivedDis = ( p2 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p1 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) )
+/\ mStar = (p2 :> "" @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+
+State 5: <FastByzantineReconstruct line 301, col 5 to line 305, col 73 of module SigBRB>
+/\ val = (p2 :> "" @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+/\ delivered = (p2 :> "" @@ p3 :> "" @@ p4 :> "")
+/\ receivedReady = (p2 :> {} @@ p3 :> {} @@ p4 :> {p1} @@ p1 :> {})
+/\ sender = p1
+/\ receivedFinal = (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE))
+/\ receivedS = (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1)
+/\ receivedRec = (p2 :> {<<p1, s1>>} @@ p3 :> {} @@ p4 :> {<<p1, s1>>} @@ p1 :> {})
+/\ receivedRep = (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {}))
+/\ decodeRound = (p2 :> 0 @@ p3 :> 0 @@ p4 :> 0 @@ p1 :> 0)
+/\ receivedDis = ( p2 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) @@
+  p1 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) )
+/\ mStar = (p2 :> "" @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+
+State 6: <SendDisperse line 112, col 5 to line 124, col 76 of module SigBRB>
+/\ val = (p2 :> "" @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+/\ delivered = (p2 :> "" @@ p3 :> "" @@ p4 :> "")
+/\ receivedReady = (p2 :> {} @@ p3 :> {} @@ p4 :> {p1} @@ p1 :> {})
+/\ sender = p1
+/\ receivedFinal = (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE))
+/\ receivedS = (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1)
+/\ receivedRec = (p2 :> {<<p1, s1>>} @@ p3 :> {} @@ p4 :> {<<p1, s1>>} @@ p1 :> {})
+/\ receivedRep = (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {}))
+/\ decodeRound = (p2 :> 0 @@ p3 :> 0 @@ p4 :> 0 @@ p1 :> 0)
+/\ receivedDis = ( p2 :> (s1 :> {} @@ s2 :> {p2} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {p2} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p2}) @@
+  p1 :> (s1 :> {p2} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) )
+/\ mStar = (p2 :> s2 @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+
+State 7: <SendReconstruct line 136, col 5 to line 141, col 70 of module SigBRB>
+/\ val = (p2 :> "" @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+/\ delivered = (p2 :> "" @@ p3 :> "" @@ p4 :> "")
+/\ receivedReady = (p2 :> {} @@ p3 :> {} @@ p4 :> {p1} @@ p1 :> {})
+/\ sender = p1
+/\ receivedFinal = (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE))
+/\ receivedS = (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1)
+/\ receivedRec = ( p2 :> {<<p2, s2>>, <<p1, s1>>} @@
+  p3 :> {<<p2, s2>>} @@
+  p4 :> {<<p2, s2>>, <<p1, s1>>} @@
+  p1 :> {<<p2, s2>>} )
+/\ receivedRep = (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {}))
+/\ decodeRound = (p2 :> 0 @@ p3 :> 0 @@ p4 :> 0 @@ p1 :> 0)
+/\ receivedDis = ( p2 :> (s1 :> {} @@ s2 :> {p2} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {p2} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p2}) @@
+  p1 :> (s1 :> {p2} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) )
+/\ mStar = (p2 :> s2 @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+
+State 8: <FastByzantineDisperse line 295, col 5 to line 298, col 70 of module SigBRB>
+/\ val = (p2 :> "" @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+/\ delivered = (p2 :> "" @@ p3 :> "" @@ p4 :> "")
+/\ receivedReady = (p2 :> {} @@ p3 :> {} @@ p4 :> {p1} @@ p1 :> {})
+/\ sender = p1
+/\ receivedFinal = (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE))
+/\ receivedS = (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1)
+/\ receivedRec = ( p2 :> {<<p2, s2>>, <<p1, s1>>} @@
+  p3 :> {<<p2, s2>>} @@
+  p4 :> {<<p2, s2>>, <<p1, s1>>} @@
+  p1 :> {<<p2, s2>>} )
+/\ receivedRep = (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {}))
+/\ decodeRound = (p2 :> 0 @@ p3 :> 0 @@ p4 :> 0 @@ p1 :> 0)
+/\ receivedDis = ( p2 :> (s1 :> {} @@ s2 :> {p2} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {p2} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p2, p1}) @@
+  p1 :> (s1 :> {p2} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) )
+/\ mStar = (p2 :> s2 @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+
+State 9: <ReceiveDisperse line 127, col 5 to line 133, col 76 of module SigBRB>
+/\ val = (p2 :> "" @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+/\ delivered = (p2 :> "" @@ p3 :> "" @@ p4 :> "")
+/\ receivedReady = (p2 :> {} @@ p3 :> {} @@ p4 :> {p1} @@ p1 :> {})
+/\ sender = p1
+/\ receivedFinal = (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE))
+/\ receivedS = (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1)
+/\ receivedRec = ( p2 :> {<<p2, s2>>, <<p1, s1>>} @@
+  p3 :> {<<p2, s2>>} @@
+  p4 :> {<<p2, s2>>, <<p1, s1>>} @@
+  p1 :> {<<p2, s2>>} )
+/\ receivedRep = (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {}))
+/\ decodeRound = (p2 :> 0 @@ p3 :> 0 @@ p4 :> 0 @@ p1 :> 0)
+/\ receivedDis = ( p2 :> (s1 :> {} @@ s2 :> {p2} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {p2} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p2, p1}) @@
+  p1 :> (s1 :> {p2} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) )
+/\ mStar = (p2 :> s2 @@ p3 :> "" @@ p4 :> s4 @@ p1 :> "")
+
+State 10: <SendReconstruct line 136, col 5 to line 141, col 70 of module SigBRB>
+/\ val = (p2 :> "" @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+/\ delivered = (p2 :> "" @@ p3 :> "" @@ p4 :> "")
+/\ receivedReady = (p2 :> {} @@ p3 :> {} @@ p4 :> {p1} @@ p1 :> {})
+/\ sender = p1
+/\ receivedFinal = (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE))
+/\ receivedS = (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1)
+/\ receivedRec = ( p2 :> {<<p2, s2>>, <<p4, s4>>, <<p1, s1>>} @@
+  p3 :> {<<p2, s2>>, <<p4, s4>>} @@
+  p4 :> {<<p2, s2>>, <<p4, s4>>, <<p1, s1>>} @@
+  p1 :> {<<p2, s2>>, <<p4, s4>>} )
+/\ receivedRep = (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {}))
+/\ decodeRound = (p2 :> 0 @@ p3 :> 0 @@ p4 :> 0 @@ p1 :> 0)
+/\ receivedDis = ( p2 :> (s1 :> {} @@ s2 :> {p2} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {p2} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p2, p1}) @@
+  p1 :> (s1 :> {p2} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) )
+/\ mStar = (p2 :> s2 @@ p3 :> "" @@ p4 :> s4 @@ p1 :> "")
+
+State 11: <TryDecode line 144, col 5 to line 156, col 56 of module SigBRB>
+/\ val = (p2 :> v1 @@ p3 :> "" @@ p4 :> "" @@ p1 :> "")
+/\ delivered = (p2 :> "" @@ p3 :> "" @@ p4 :> "")
+/\ receivedReady = (p2 :> {p2} @@ p3 :> {p2} @@ p4 :> {p2, p1} @@ p1 :> {p2})
+/\ sender = p1
+/\ receivedFinal = (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE))
+/\ receivedS = (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1)
+/\ receivedRec = ( p2 :> {<<p2, s2>>, <<p4, s4>>, <<p1, s1>>} @@
+  p3 :> {<<p2, s2>>, <<p4, s4>>} @@
+  p4 :> {<<p2, s2>>, <<p4, s4>>, <<p1, s1>>} @@
+  p1 :> {<<p2, s2>>, <<p4, s4>>} )
+/\ receivedRep = (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {}))
+/\ decodeRound = (p2 :> 0 @@ p3 :> 0 @@ p4 :> 0 @@ p1 :> 0)
+/\ receivedDis = ( p2 :> (s1 :> {} @@ s2 :> {p2} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {p2} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p2, p1}) @@
+  p1 :> (s1 :> {p2} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) )
+/\ mStar = (p2 :> s2 @@ p3 :> "" @@ p4 :> s4 @@ p1 :> "")
+
+State 12: <TryDecode line 144, col 5 to line 156, col 56 of module SigBRB>
+/\ val = (p2 :> v1 @@ p3 :> "" @@ p4 :> v1 @@ p1 :> "")
+/\ delivered = (p2 :> "" @@ p3 :> "" @@ p4 :> "")
+/\ receivedReady = (p2 :> {p2, p4} @@ p3 :> {p2, p4} @@ p4 :> {p2, p4, p1} @@ p1 :> {p2, p4})
+/\ sender = p1
+/\ receivedFinal = (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE))
+/\ receivedS = (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1)
+/\ receivedRec = ( p2 :> {<<p2, s2>>, <<p4, s4>>, <<p1, s1>>} @@
+  p3 :> {<<p2, s2>>, <<p4, s4>>} @@
+  p4 :> {<<p2, s2>>, <<p4, s4>>, <<p1, s1>>} @@
+  p1 :> {<<p2, s2>>, <<p4, s4>>} )
+/\ receivedRep = (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {}))
+/\ decodeRound = (p2 :> 0 @@ p3 :> 0 @@ p4 :> 0 @@ p1 :> 0)
+/\ receivedDis = ( p2 :> (s1 :> {} @@ s2 :> {p2} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {p2} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p2, p1}) @@
+  p1 :> (s1 :> {p2} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) )
+/\ mStar = (p2 :> s2 @@ p3 :> "" @@ p4 :> s4 @@ p1 :> "")
+
+State 13: <Decide line 170, col 5 to line 176, col 72 of module SigBRB>
+/\ val = (p2 :> v1 @@ p3 :> "" @@ p4 :> v1 @@ p1 :> "")
+/\ delivered = (p2 :> "" @@ p3 :> "" @@ p4 :> v1)
+/\ receivedReady = (p2 :> {p2, p4} @@ p3 :> {p2, p4} @@ p4 :> {p2, p4, p1} @@ p1 :> {p2, p4})
+/\ sender = p1
+/\ receivedFinal = (p2 :> (v1 :> TRUE) @@ p3 :> (v1 :> FALSE) @@ p4 :> (v1 :> FALSE))
+/\ receivedS = (p2 :> v1 @@ p3 :> v1 @@ p4 :> v1)
+/\ receivedRec = ( p2 :> {<<p2, s2>>, <<p4, s4>>, <<p1, s1>>} @@
+  p3 :> {<<p2, s2>>, <<p4, s4>>} @@
+  p4 :> {<<p2, s2>>, <<p4, s4>>, <<p1, s1>>} @@
+  p1 :> {<<p2, s2>>, <<p4, s4>>} )
+/\ receivedRep = (p2 :> (v1 :> {}) @@ p3 :> (v1 :> {}) @@ p4 :> (v1 :> {}))
+/\ decodeRound = (p2 :> 0 @@ p3 :> 0 @@ p4 :> 0 @@ p1 :> 0)
+/\ receivedDis = ( p2 :> (s1 :> {} @@ s2 :> {p2} @@ s3 :> {} @@ s4 :> {}) @@
+  p3 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {p2} @@ s4 :> {}) @@
+  p4 :> (s1 :> {} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {p2, p1}) @@
+  p1 :> (s1 :> {p2} @@ s2 :> {} @@ s3 :> {} @@ s4 :> {}) )
+/\ mStar = (p2 :> s2 @@ p3 :> "" @@ p4 :> s4 @@ p1 :> "")
