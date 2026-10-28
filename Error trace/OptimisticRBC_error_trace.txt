@@ -1553,7 +1553,3 @@ State 37: <StepCommit line 107, col 5 to line 112, col 71 of module OptimisticRB
   p10 |->
       [ m1 |-> {"p8", "p9", "p10"},
         m2 |-> {"p4", "p5", "p6", "p7", "p2", "p3"} ] ]
-
-State 38: Stuttering
-Finished checking temporal properties in 01s at 2026-10-28 13:59:16
-4503 states generated, 1028 distinct states found, 0 states left on queue.
